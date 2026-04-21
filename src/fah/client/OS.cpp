@@ -35,6 +35,8 @@
 #include "win/WinOSImpl.h"
 #elif defined(__APPLE__)
 #include "osx/OSXOSImpl.h"
+#elif defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
+#include "bsd/BsdOSImpl.h"
 #else
 #include "lin/LinOSImpl.h"
 #endif
@@ -62,6 +64,9 @@ SmartPointer<OS> OS::create(App &app) {
 
 #elif defined(__APPLE__)
   return new OSXOSImpl(app);
+
+#elif defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
+  return new BsdOSImpl(app);
 
 #else
   return new LinOSImpl(app);

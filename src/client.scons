@@ -1,4 +1,5 @@
 import glob
+import sys
 
 Import('*')
 
@@ -24,6 +25,8 @@ if env['PLATFORM'] == 'win32' or int(env.get('cross_mingw', 0)):
     src += Glob('fah/client/win/*.cpp')
 
 elif env['PLATFORM'] == 'darwin': src += Glob('fah/client/osx/*.cpp')
+elif sys.platform.startswith(('openbsd', 'freebsd', 'netbsd', 'dragonfly')):
+    src += Glob('fah/client/bsd/*.cpp')
 else: src += Glob('fah/client/lin/*.cpp')
 
 # Build Info
